@@ -8,6 +8,8 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton'
 import Checkbox from 'material-ui/Checkbox';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import PaymentChart from './PaymentChart'
+import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
+  FormsySelect, FormsyText, FormsyTime, FormsyToggle } from 'formsy-material-ui/lib';
 
 const questions = [
   
@@ -85,7 +87,7 @@ const styles = {
     maxWidth: 250,
   },
   question: {
-    padding: "16px 17px 10px"
+    padding: "16px 0 10px"
   },
   radioButton: {
     marginTop: 17,
@@ -178,8 +180,6 @@ class QuestionForm extends Component {
         onChange={this.handleInputBoxChange.bind(this)}
       />
     )
-    
-    
   }
   
   render() {
@@ -200,6 +200,12 @@ class QuestionForm extends Component {
         case "text":
           questionComponent = this.textField(question)
           break;
+      }
+      
+      var requiredAsterisk;
+      
+      if(question.type){
+        requiredAsterisk
       }
       
       return (

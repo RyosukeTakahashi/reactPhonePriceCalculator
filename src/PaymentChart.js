@@ -1,12 +1,13 @@
 // eslint-disable-next-line
 import React, {Component, PropTypes} from 'react';
-import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts'
+import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts'
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AndroidIcon from 'material-ui/svg-icons/hardware/phone-android'
-
+import CustomizedAxisTick from './CustomizedAxisTick'
+import CustomizedLabel from './CustomizedLabel'
 
 class PaymentChart extends Component {
   
@@ -140,7 +141,7 @@ class PaymentChart extends Component {
     if (/iPhone/.test(deviceName) === false && u25 === "２５歳以下です") {
       if (dataUsageSize >= 5) {
         studentDiscount = 800; //monthly
-        var discount25 = "U25割引を適用して、"; //message
+        // var discount25 = "U25割引を適用して、"; //message
       }
     }
     console.log("契約は" + contractType);
@@ -165,14 +166,14 @@ class PaymentChart extends Component {
       dataPriceSim = 1520;
       simDescription += "5GBのSIM"
       
-    } else if (dataUsageSize <= 10) {
+    } else if (dataUsageSize > 5) {
       simDescription += "10GBのSIM";
       dataPriceSim = 2560
     }
     
-    if (needPhoneNumber === "090番号が必要") {
+    if (needPhoneNumber === true) {
       dataPriceSim += 700;
-      simDescription += "（090番号付き）を契約して、Expansysで端末を買った場合の価格です。"
+      simDescription += "（090番号付き）を契約して、Expansysで端末を買った場合の推移です。"
     }
     
     //docomo dataPrice
@@ -180,20 +181,21 @@ class PaymentChart extends Component {
     
     if (dataUsageSize <= 3 && basicPrice === 2700) {
       dataPrice = 3500;
-      docomoDescription += "データSパック（2GB）を契約した場合の価格です。"
+      docomoDescription += "データSパック（2GB）を契約した場合の推移です。"
     } else if (dataUsageSize <= 3 && basicPrice === 1700) {
       dataPrice = 5000;
       //dataUsageSize = 5;
-      docomoDescription += "データMパック（5GB）を契約した場合の価格です。"
+      docomoDescription += "データMパック（5GB）を契約した場合の推移です。"
     } else if (dataUsageSize <= 5) {
       dataPrice = 5000;
-      docomoDescription += "データMパック（5GB）を契約した場合の価格です。"
+      docomoDescription += "データMパック（5GB）を契約した場合の推移です。"
     } else if (dataUsageSize <= 8) {
       dataPrice = 6700;
-      docomoDescription += "データLパック（8GB）を契約した場合の価格です。"
+      docomoDescription += "データLパック（8GB）を契約した場合の推移です。"
       
     } else if (dataUsageSize > 8) {
-      dataPrice = 9500
+      dataPrice = 9500;
+      docomoDescription += "データフラットを契約した場合の推移です。"
     }
     
     console.log("docomoデータ通信料金：" + dataPrice);
@@ -225,7 +227,6 @@ class PaymentChart extends Component {
       }
     }
     
-    
     var tax = 1.08;
     
     var monthlyPaymentDocomo = (docomoPrice - deviceDiscount) / 24 +
@@ -239,7 +240,7 @@ class PaymentChart extends Component {
     var monthlyPaymentSim = Math.floor(dataPriceSim * tax);
     var oneYearPaymentSim = monthlyPaymentSim * 12 + initialCost;
     var twoYearPaymentSim = monthlyPaymentSim * 24 + initialCost;
-    var threeYearPaymentSim = monthlyPaymentSim * 36 + initialCost
+    var threeYearPaymentSim = monthlyPaymentSim * 36 + initialCost;
     var fourYearPaymentSim = monthlyPaymentSim * 48 + initialCost;
     
     var buy;
@@ -274,30 +275,25 @@ class PaymentChart extends Component {
     var result = {
       deviceName: deviceName,
       chartData: chartData,
+      fourYearDifference: fourYearDifference,
       buy: buy,
       docomoDescription: docomoDescription,
       simDescription: simDescription,
       oneYearPaymentSim: oneYearPaymentSim,
       oneYearPaymentDocomo: oneYearPaymentDocomo
-    }
+    };
     
-    console.log(result)
+    console.log(result);
     
     return result
-  }
+  };
   
   render() {
     
     const actions = [
       <FlatButton
-        label="Cancel"
+        label="Close"
         primary={true}
-        onTouchTap={this.handleClose}
-      />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        disabled={true}
         onTouchTap={this.handleClose}
       />,
     ];
@@ -311,7 +307,7 @@ class PaymentChart extends Component {
             labelPosition="before"
             primary={true}
             icon={<AndroidIcon/>}
-            style={{marginLeft: "18px"}}
+            style={{marginTop: "30px"}}
           />
           <Dialog
             title="比較結果"
@@ -319,17 +315,29 @@ class PaymentChart extends Component {
             modal={true}
             open={this.state.open}
           >
-            
-            <LineChart width={600} height={300} data={this.state.result.chartData}
-                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-              <XAxis dataKey="name"/>
-              <YAxis/>
-              <CartesianGrid strokeDasharray="3 3"/>
-              <Tooltip/>
-              <Legend />
-              <Line type="monotone" dataKey="simFree" stroke="#8884d8"/>
-              <Line type="monotone" dataKey="docomo" stroke="#82ca9d"/>
-            </LineChart>
+            <ResponsiveContainer minWidth={300} minHeight={300}>
+              <LineChart data={this.state.result.chartData}
+                         margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                <XAxis dataKey="name" height={80} tick={<CustomizedAxisTick/>} padding={{left: 30, right: 30}}/>
+                <YAxis/>
+                <CartesianGrid strokeDasharray="3 3"/>
+                <Tooltip/>
+                <Legend />
+                <Line type="monotone" dataKey="simFree" stroke="#8884d8" label={<CustomizedLabel/>}/>
+                <Line type="monotone" dataKey="docomo" stroke="#82ca9d" label={<CustomizedLabel/>}/>
+              </LineChart>
+            </ResponsiveContainer>
+            <br/>
+            <div>
+              <dl style={{lineHeight: "150%"}}>
+                <dt>simFree:</dt>
+                <dd>{this.state.result.simDescription}</dd>
+                <dt>docomo:</dt>
+                <dd>{this.state.result.docomoDescription}</dd>
+              </dl>
+              {this.state.result.fourYearDifference + "円 の違いが4年間で発生します。"}<br/><br/>
+              {"格安SIMを使えば、浮いた" + this.state.result.fourYearDifference + "円で、" + this.state.result.buy}
+            </div>
           
           </Dialog>
         </div>

@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  background-color: lightblue;
 }
 
 .App-logo {
@@ -9,24 +9,56 @@
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  height: 250px;
   padding: 20px;
   color: white;
-}
-
-.App-intro {
-  font-size: large;
+  text-align: center;
+  background-image: url("./header.jpg");
+  background-size: cover;
+  background-position: center;
+  color: rgba(255, 255, 255, 1);
 }
 
 .App-main {
-
-  width: 50%;
   margin: auto;
 }
 
-.chart {
+.form-box {
   width: 50%;
-  margin: auto;
+  margin: 0 auto;
+  margin-top: -120px;
+  border-top: solid;
+  border-top-width: 8px;
+  border-top-color: rgb(49, 178, 219);
+  padding: 40px 32px;
+  background-color: white;
+  align-content: center;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+}
+
+.App-title {
+  box-sizing: border-box;
+  font-size: 30px;
+  line-height: 100%;
+  max-width: 100%;
+  min-width: 0%;
+  margin-bottom: 30px;
+}
+
+.App-intro {
+  font-size: 13px;
+  line-height: 130%;
+}
+
+.App-footer {
+  padding: 30px;
+  text-align: center;
+    font-size: 12px;
+  color: rgb(100, 100, 100);
+}
+
+.chart {
+
 }
 
 @keyframes App-logo-spin {
@@ -34,15 +66,3 @@
   to { transform: rotate(360deg); }
 }
 
-.completedTask {
-  text-decoration: line-through;
-}
-
-.TodoList {
-
-  text-align: left;
-}
-
-.QuestionForm {
-  text-align: left;
-}
