@@ -9,6 +9,10 @@ import {orange500, blue500} from 'material-ui/styles/colors';
 
 import PaymentChart from './PaymentChart'
 import Formsy from 'formsy-react'
+// eslint-disable-next-line
+import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
+  FormsySelect, FormsyText, FormsyTime, FormsyToggle } from 'formsy-material-ui/lib';
+
 
 import Calculator from './Calculator'
 
@@ -231,11 +235,11 @@ class QuestionForm extends Component {
   
   textField(question) {
     return (
-      <TextField
+      <FormsyText
         type="text"
         name={question.name}
         key={question.title}
-        //validations={"isNumeric"}
+        validations={"isNumeric"}
         errorStyle={styles.errorStyle}
         hintText={question.hintText}
         defaultValue={0}
