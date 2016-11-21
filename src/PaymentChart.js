@@ -21,11 +21,11 @@ class PaymentChart extends Component {
   
   handleClose = () => {
     // this.setState({open: false});
-    this.props.onCloseClick()
+    this.props.onCloseClick();
     console.log("close state")
   };
   
-
+  
   render() {
     
     const actions = [
@@ -36,20 +36,28 @@ class PaymentChart extends Component {
       />,
     ];
     
+    const customContentStyle = {
+      width: '100%',
+      maxWidth: 'none',
+    };
+    
+    
     return (
       <MuiThemeProvider>
         <div className="chart">
-
+          
           <Dialog
             title="比較結果"
             actions={actions}
-            modal={true}
             open={this.props.open}
+            contentStyle={customContentStyle}
+            autoScrollBodyContent={true}
+            autoDetectWindowHeight={true}
           >
             <ResponsiveContainer minWidth={300} minHeight={300}>
               <LineChart data={this.props.result.chartData}
-                         margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-                <XAxis dataKey="name" height={80} tick={<CustomizedAxisTick/>} padding={{left: 30, right: 30}}/>
+                         margin={{top: 5, right: 30, left: 0, bottom: 5}}>
+                <XAxis dataKey="name" height={80} tick={<CustomizedAxisTick/>} padding={{left: 20, right: 20}}/>
                 <YAxis/>
                 <CartesianGrid strokeDasharray="3 3"/>
                 <Tooltip/>

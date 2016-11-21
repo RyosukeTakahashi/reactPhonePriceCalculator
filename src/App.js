@@ -1,37 +1,42 @@
 import React, {Component} from 'react';
 import './App.css';
 import QuestionForm from './QuestionForm'
-
+import {Container, Row, Col} from 'react-grid-system';
 
 class App extends Component {
   
   constructor(props) {
     super(props);
-    this.state = {
-    }
+    this.state = {}
   }
   
   render() {
     return (
       <div className="App">
-        <div className="App-header" />
+        <div className="App-header"/>
         
         <div className="App-main">
           
-          <div className="form-box">
-            
-            <div className="App-title">
-              うそっ？ケータイ料金比較
-            </div>
-            
-            <p className="App-intro">
-              キャリアで買うのと、SIMフリーで買うのとでは、どちらがお得か、計算します。<br/><br/>
-              {/*ご利用の際、こちらにデータが送られ保存されます。今後のサービス向上のために利用させていただく場合がございます。それに同意できる方のみ、ご利用ください。*/}
-            </p>
-            
-            <QuestionForm/>
-          </div>
-          
+          <Container>
+            <Row>
+              <Col md={2}/>
+              <Col xs={12} sm={12} md={8}>
+                <div className="form-box">
+                  
+                  <div className="App-title">
+                    うそっ、私のケータイ料金、高すぎ？
+                  </div>
+                  <p className="App-intro">
+                    ・・・なのかどうかを知りたい方のためのアプリです。<br/><br/>
+                    フォームを入力して最後のボタンを押すだけ。<br/>
+                    格安SIMだと1,2,4年でどれくらい安くなるか、グラフ付きで分かります。<br/><br/>
+                  </p>
+                  
+                  <QuestionForm/>
+                </div>
+              </Col>
+            </Row>
+          </Container>
           <div className="App-footer">
             The data collected could be used for service improvement but not for personal data collection.
           </div>
