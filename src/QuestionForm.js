@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import TextField from 'material-ui/TextField'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton'
 import Checkbox from 'material-ui/Checkbox';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -9,9 +8,7 @@ import {orange500, blue500} from 'material-ui/styles/colors';
 
 import PaymentChart from './PaymentChart'
 import Formsy from 'formsy-react'
-// eslint-disable-next-line
-import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
-  FormsySelect, FormsyText, FormsyTime, FormsyToggle } from 'formsy-material-ui/lib';
+import {FormsyText} from 'formsy-material-ui/lib';
 
 
 import Calculator from './Calculator'
@@ -77,7 +74,7 @@ const questions = [
   {
     type: "radio",
     name: "contractLength",
-    title: "Docomoとの今までの継続契約期間は",
+    title: "キャリアとの今までの継続契約期間は",
     options: [
       "10年未満",
       "10～15年",

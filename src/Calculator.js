@@ -1,4 +1,3 @@
-//jsclseg for example
 class Calculator {
   constructor(name) {
     this.name = name;
@@ -243,6 +242,10 @@ class Calculator {
       buy = "一人暮らしの準備ができそう。"
     }
     
+    docomoDescription = "毎月" + monthlyPaymentDocomo + "円。" + docomoDescription;
+    simDescription = "毎月" + monthlyPaymentSim + "円。" + "初期費用: " + expansysPrice+ "円。" + simDescription;
+    
+    
     var chartData = [
       {name: '0ヶ月目', docomo: 0, simFree: initialCost},
       {name: '12ヶ月目', docomo: oneYearPaymentDocomo, simFree: oneYearPaymentSim},
@@ -255,6 +258,8 @@ class Calculator {
       deviceName: deviceName,
       chartData: chartData,
       fourYearDifference: fourYearDifference,
+      monthlyPaymentSim: monthlyPaymentSim,
+      monthlyPaymentDocomo: monthlyPaymentDocomo,
       buy: buy,
       docomoDescription: docomoDescription,
       simDescription: simDescription,
